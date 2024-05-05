@@ -34,5 +34,6 @@ Contributions to this project are welcome. You can contribute by providing feedb
 ## Authors
 •	[ItzzInfinity](https://www.linkedin.com/in/anjan-prasad-itzzinfinity/)
 •	Prasad.anjan25@gmail.com
+•	[DikshitaDas](https://github.com/DikshitaDas)
 ## 📄 License
 This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/) License.
