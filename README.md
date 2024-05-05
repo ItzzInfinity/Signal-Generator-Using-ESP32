@@ -10,7 +10,9 @@ This project demonstrates how to build a signal generator using the ESP32 microc
 1. ESP32 Dev Module
 2. AD9833 DDS Module
 3. Resistors and capacitors as per circuit requirements
-4. 2x 9V Battery 
+4. 2x 9V Battery
+5. 0.96 inch OLED Display
+6. LM324 OP-Amp
 ## 🚦 Getting Started
 - Clone or download the repository to your local machine.
 - Upload the provided code to your ESP32 board using the Arduino IDE.
