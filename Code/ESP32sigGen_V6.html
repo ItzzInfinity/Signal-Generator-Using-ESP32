@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>ESP32sigGen_V6</title>
+
+    <style>
+
+        body {
+            background-color: #f0f0f0bb;
+            color: #333;
+            font-family: Arial, sans-serif;
+           
+            /* margin-left: 10rem; */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+            output { 
+            position: absolute;
+            background-image: linear-gradient(#444444, #999999);
+            width: 70px; 
+            height: 30px; 
+            text-align: center; 
+            color: white; 
+            border-radius: 10px; 
+            display: inline-block; 
+            font: bold 15px/30px Georgia;
+            bottom: 175%;
+            left: 0;
+        }
+output:after { 
+  content: "";
+  position: absolute; 
+  width: 0;
+  height: 0;
+  border-top: 10px solid #999999;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  margin-top: -1px;
+}
+
+form { position: relative; margin: 50px; width: 1200px; margin-left: 40rem; }
+
+
+        /* Textbox CSS */
+        #numberInput {
+            padding: 10px;
+            font-size: 16px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #34db58;
+            color: #fff;
+            border-radius: 5px;
+        }
+        
+        #submit {
+            background-color: #3498db;
+            color: #fff;
+        }
+        
+        /* CSS for my signature  */
+        footer.footright {
+            color: #AAAAAA;
+            /* light text color */
+            font-family: Consolas, 'courier new';
+            text-align: right;
+            margin-top: 0px;
+        }
+        
+        footer.footleft {
+            color: #AAAAAA;
+            /* light text color */
+            font-family: Consolas, 'courier new';
+            text-align: left;
+            margin-top: 50px;
+        }
+        
+        .label{
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: row;
+        }
+        </style>
+        
+</head>
+
+<body>
+    <h1 class="a">ESP32 Signal generator</h1>
+
+    <input type='number' id='numberInput' placeholder='Enter a positive number' class="a">
+    <br>
+    <!-- slider -->
+    <div class="slider">
+        <form>
+            <input type='range' name='foo' min='0' max='7' oninput='UpdateSlider(this.value)' style='width: 50%;'>
+            <output for='foo' onforminput='value = labels[foo.valueAsNumber];'></output>
+        </form>
+    </div>
+   
+    <!-- <br><br> -->
+    <button id='submit' class="a">Set Frequency</button>
+    <!-- <br><br><br><br> -->
+    <!-- waveforms -->
+    <br><br><br>
+    <label for='setWAVE' class="a">Wave Selector</label><br>
+    <div class="label a" >
+    <button id='setSINE' onclick="updateWave(1)">SINE</button>
+    <button id='setTRIANGLE' onclick="updateWave(2)">TRIANGLE</button>
+    <button id='setSQUARE' onclick="updateWave(0)">SQUARE</button>
+    </div>
+   
+    <!-- my signature -->
+    <footer div class='footleft' id='temp' class="a">© Copyright to Infinite Solutions Inc.</div>
+    </footer>
+    <footer div class='footright' class="a">Designed & developed by Infinity</div>
+    </footer>
+</body>
+
+
+<script>// JS code for silder starts here 
+    const labels = ['x1Hz', 'x10Hz', 'x100Hz', 'x1kHz', 'x10kHz', 'x100kHz', 'x1MHz', 'x10MHz'];
+    var wav = 0;
+    function updateWave(newWave) {
+        wav = newWave;
+        console.log("Updated wav:", wav);}
+    function modifyOffset() { // dont know how this Fn works but it works
+        var el, newPoint, newPlace, offset, siblings, k;
+        width = this.offsetWidth;
+        newPoint = (this.value - this.getAttribute('min')) / (this.getAttribute('max') - this.getAttribute('min'));
+        offset = -1;
+        if (newPoint < 0) { newPlace = 0; }
+        else if (newPoint > 1) { newPlace = width; }
+        else { newPlace = width * newPoint + offset; offset -= newPoint; }
+        siblings = this.parentNode.childNodes;
+        for (var i = 0; i < siblings.length; i++) {
+            sibling = siblings[i];
+            if (sibling.id == this.id) { k = true; }
+            if ((k == true) && (sibling.nodeName == 'OUTPUT')) {
+                outputTag = sibling;
+            }
+        }
+        outputTag.style.left = newPlace + 'px';
+        outputTag.style.marginLeft = offset + '%';
+        outputTag.innerHTML = labels[this.value];
+    }
+    
+    function modifyInputs() {
+        var inputs = document.getElementsByTagName('input');
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].getAttribute('type') == 'range') {
+                inputs[i].onchange = modifyOffset;
+                if ('fireEvent' in inputs[i]) {
+                    inputs[i].fireEvent('onchange');
+                } else {
+                    var evt = document.createEvent('HTMLEvents');
+                    evt.initEvent('change', false, true);
+                    inputs[i].dispatchEvent(evt);
+                }
+            }
+        }
+    }
+    
+    modifyInputs();
+    // JS code for silder ends here 
+    
+    //INPUT MULTIPLIER CODE STARTS HERE
+    function UpdateSlider(value) {
+        // Embed the multiplyBy function
+        multiplyBy(10 ** value);
+    }
+    
+    function multiplyBy(multiplier) {
+        var inputValue = document.getElementById('numberInput').value;
+    
+        if (!isNaN(inputValue) && inputValue >= 0) {
+            var result = inputValue * multiplier;
+            document.getElementById('numberInput').value = result;
+        } else {
+            alert('Please enter a valid positive number.');
+        }
+    }
+    //  IDK WHY ABOVE IS WORKING BUT THIS IS NOT THOUGH THEY ARE 2 FN AND THIS IS WRITTEN IN A SINGLE ONE
+    // function updateSliderAndMultiply(value) {
+    //     var inputValue = document.getElementById('numberInput').value;
+    
+    //     if (!isNaN(inputValue) && inputValue >= 0) {
+    //         var result = inputValue * (10 ** value);
+    //         document.getElementById('numberInput').value = result;
+    //     } else {
+    //         alert('Please enter a valid positive number.');
+    //     }
+    // }
+    //INPUT MULTIPLIER CODE ENDS HERE
+    
+    
+    // socket initialisation
+    var Socket;
+    document.getElementById('submit').addEventListener('click', sendToServer);
+    function init() {
+        Socket = new WebSocket('ws://' + window.location.hostname + ':81/');
+        Socket.onmessage = function (event) {
+            processCommand(event);
+        };
+    }
+    function sendToServer() {
+        var inputValue = document.getElementById('numberInput').value;
+        var freqValue = parseInt(inputValue, 10);
+        var waveInt = parseInt(wav,10);
+        var data = {
+            'freqdata':
+            {
+                'Freq': freqValue,
+                'wav': waveInt
+            }
+        }
+    
+        if (!isNaN(freqValue) && freqValue >= 0) {
+            // Send the input value to the server using WebSocket
+            Socket.send(JSON.stringify(data));
+            console.log(data);
+        } else {
+            alert('Please enter a valid positive number.');
+        }
+    }
+    window.onload = function (event) {
+        init();
+    }</script>
+
+</html>
