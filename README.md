@@ -29,6 +29,8 @@ This project demonstrates how to build a signal generator using the ESP32 microc
 - If you encounter issues with the webpage not loading or settings not being applied, check the network connection and ensure the ESP32 is running the correct firmware.
 ## 🌟 Contributing
 Contributions to this project are welcome. You can contribute by providing feedback, reporting issues, or submitting pull requests with enhancements or bug fixes.
-
+## Authors
+•	[ItzzInfinity](https://www.linkedin.com/in/anjan-prasad-itzzinfinity/)
+•	Prasad.anjan25@gmail.com
 ## 📄 License
 This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/) License.
