@@ -19,7 +19,7 @@ This project demonstrates how to build a signal generator using the ESP32 microc
 - Connect the AD9833 DDS Module to the ESP32 as per the circuit diagram.
 - Power on the ESP32 board and access the hosted webpage to set frequency and waveform parameters.
 ## 📌 Circuit Diagram
-- Will be uploaded Shortly
+- ![Schematic](https://github.com/ItzzInfinity/Signal-Generator-Using-ESP32/blob/main/Images/FunctionGen_schem.jpg?raw=true)
 ## 🖥️ Usage
 1. Power on the ESP32 board and ensure it is connected to your local network.
 2. Open a web browser on your computer or mobile device.
