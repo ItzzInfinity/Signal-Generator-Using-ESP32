@@ -37,4 +37,4 @@ Contributions to this project are welcome. You can contribute by providing feedb
 •	Prasad.anjan25@gmail.com
 •	[DikshitaDas](https://github.com/DikshitaDas)
 ## 📄 License
-This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/) License.
+This project is licensed under the [MIT](https://github.com/ItzzInfinity/Signal-Generator-Using-ESP32/tree/main?tab=MIT-1-ov-file) License.
